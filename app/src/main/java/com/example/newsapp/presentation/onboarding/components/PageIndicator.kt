@@ -22,7 +22,7 @@ fun PageIndicator(
     selectedColor: Color = MaterialTheme.colorScheme.primary,
     unselectedColor: Color = BlueGray
 ) {
-    Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
+    Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceEvenly) {
         repeat(pageSize) {page ->
             Box(modifier = Modifier.size(IndicatorSize).clip(CircleShape)
                 .background(color = if (page == selectedPage) selectedColor else unselectedColor)

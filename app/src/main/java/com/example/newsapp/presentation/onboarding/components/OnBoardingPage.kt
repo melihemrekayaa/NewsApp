@@ -38,16 +38,25 @@ fun OnBoardingPage(
             contentScale = ContentScale.Crop
         )
 
-        Spacer(modifier = Modifier.height(Dimens.MediumPadding1))
+        Spacer(modifier = Modifier.height(
+            Dimens.MediumPadding1)
+        )
         Text(
             text = page.title,
-            modifier = Modifier.padding(horizontal = Dimens.MediumPadding2),
-            style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold, color = colors.onBackground),
+            modifier = Modifier.padding(
+                horizontal = Dimens.MediumPadding2
+            ),
+            style = MaterialTheme.typography.displaySmall.copy(
+                fontWeight = FontWeight.Bold,
+                color = colors.onBackground
+            ),
         )
 
         Text(
             text = page.description,
-            modifier = Modifier.padding(horizontal = Dimens.MediumPadding2),
+            modifier = Modifier.padding(
+                horizontal = Dimens.MediumPadding2
+            ),
             style = MaterialTheme.typography.bodyMedium,
             color = colors.onBackground
         )
