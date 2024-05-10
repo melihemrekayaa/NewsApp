@@ -9,6 +9,8 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.example.newsapp.presentation.onboarding.OnBoardingScreen
 import com.example.newsapp.presentation.onboarding.OnBoardingViewModel
+import com.example.newsapp.presentation.search.SearchScreen
+import com.example.newsapp.presentation.search.SearchViewModel
 
 @Composable
 fun NavGraph(
@@ -40,7 +42,10 @@ fun NavGraph(
             composable(
                 route = Route.NewsNavigatorScreen.route
             ) {
-                Text(text = "News Navigator Screen")
+                val viewModel : SearchViewModel = hiltViewModel()
+                SearchScreen(state = viewModel.state.value, event = viewModel::onEvent) {
+                    
+                }
             }
         }
 

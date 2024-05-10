@@ -19,6 +19,8 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.newsapp.domain.model.Article
 import com.example.newsapp.presentation.Dimens.MediumPadding1
 import com.example.newsapp.R
+import com.example.newsapp.presentation.common.SearchBar
+import com.example.newsapp.presentation.navgraph.Route
 
 
 @Composable
@@ -48,6 +50,13 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
                 .padding(horizontal = MediumPadding1))
         
         Spacer(modifier = Modifier.height(MediumPadding1))
+
+        SearchBar(text = "", readOnly = true, onValueChange = {}, onClick = {
+           navigate(Route.SearchScreen.route)
+        }, onSearch = {})
+
+        Spacer(modifier = Modifier.height(MediumPadding1))
+
     }
 
 }
