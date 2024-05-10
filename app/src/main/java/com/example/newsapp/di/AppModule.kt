@@ -1,6 +1,10 @@
 package com.example.newsapp.di
 
 import android.app.Application
+import androidx.room.Room
+import com.example.newsapp.data.local.NewsDao
+import com.example.newsapp.data.local.NewsDatabase
+import com.example.newsapp.data.local.NewsTypeConverter
 import com.example.newsapp.data.manager.LocalUserManagerImpl
 import com.example.newsapp.data.remote.dto.NewsAPI
 import com.example.newsapp.data.repository.NewsRepositoryImpl
@@ -13,6 +17,7 @@ import com.example.newsapp.domain.usecases.news.GetNews
 import com.example.newsapp.domain.usecases.news.NewsUseCases
 import com.example.newsapp.domain.usecases.news.SearchNews
 import com.example.newsapp.util.Constants.BASE_URL
+import com.example.newsapp.util.Constants.NEWS_DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,11 +34,11 @@ object AppModule {
     @Singleton
     fun provideLocalUserManager(
         application: Application
-    ) : LocalUserManager = LocalUserManagerImpl(application)
+    ): LocalUserManager = LocalUserManagerImpl(application)
 
     @Provides
     @Singleton
-    fun provideNewsApi() : NewsAPI {
+    fun provideNewsApi(): NewsAPI {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -45,17 +50,17 @@ object AppModule {
     @Singleton
     fun provideNewsRepository(
         newsAPI: NewsAPI
-    ) : NewsRepository = NewsRepositoryImpl(newsAPI)
+    ): NewsRepository = NewsRepositoryImpl(newsAPI)
 
     @Provides
     @Singleton
     fun provideNewsUseCases(
         newsRepository: NewsRepository
-    ) : NewsUseCases  {
-            return NewsUseCases(
-                getNews = GetNews(newsRepository),
-                searchNews = SearchNews(newsRepository)
-            )
+    ): NewsUseCases {
+        return NewsUseCases(
+            getNews = GetNews(newsRepository),
+            searchNews = SearchNews(newsRepository)
+        )
     }
 
     @Provides
@@ -66,4 +71,26 @@ object AppModule {
         saveAppEntry = SaveAppEntry(localUserManager),
         readAppEntry = ReadAppEntry(localUserManager)
     )
+
+    @Provides
+    @Singleton
+    fun provideNewsDatabase(
+        application: Application
+    ): NewsDatabase {
+        return Room.databaseBuilder(
+            context = application,
+            klass = NewsDatabase::class.java,
+            name = NEWS_DATABASE_NAME
+        ).addTypeConverter(NewsTypeConverter())
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsDao(
+        newsDatabase: NewsDatabase
+    ): NewsDao = newsDatabase.newsDao
+
+
+
 }
