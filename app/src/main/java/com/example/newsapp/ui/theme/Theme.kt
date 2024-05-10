@@ -20,14 +20,16 @@ private val DarkColorScheme = darkColorScheme(
     background = Black,
     primary = Blue,
     error = DarkRed,
-    surface = LightBlack
+    surface = LightBlack,
+    tertiary = Color.White
 )
 
 private val LightColorScheme = lightColorScheme(
     background = Color.White,
     primary = Blue,
     error = LightRed,
-    surface = Color.White
+    surface = Color.White,
+    tertiary = Black
 
 )
 
