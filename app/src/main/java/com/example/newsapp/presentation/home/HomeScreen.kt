@@ -19,43 +19,64 @@ import androidx.paging.compose.LazyPagingItems
 import com.example.newsapp.domain.model.Article
 import com.example.newsapp.presentation.Dimens.MediumPadding1
 import com.example.newsapp.R
+import com.example.newsapp.presentation.common.ArticlesList
 import com.example.newsapp.presentation.common.SearchBar
 import com.example.newsapp.presentation.navgraph.Route
 
 
 @Composable
-fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
-        val titles by remember {
-            derivedStateOf {
-                if (articles.itemCount > 10){
-                    articles.itemSnapshotList.items
-                        .slice(IntRange(start = 0, endInclusive = 9))
-                        .joinToString(separator = "\uD83d\uDFE5"){it.title}
-                }
-                else{
-                    ""
-                }
+fun HomeScreen(
+    articles: LazyPagingItems<Article>,
+    navigateToSearch: () -> Unit,
+    navigateToDetails: (Article) -> Unit
+) {
+    val titles by remember {
+        derivedStateOf {
+            if (articles.itemCount > 10) {
+                articles.itemSnapshotList.items
+                    .slice(IntRange(start = 0, endInclusive = 9))
+                    .joinToString(separator = "\uD83d\uDFE5") { it.title }
+            } else {
+                ""
             }
         }
+    }
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(top = MediumPadding1)
-        .statusBarsPadding()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = MediumPadding1)
+            .statusBarsPadding()
     ) {
-        Image(painter = painterResource(id = R.drawable.ic_logo), contentDescription = null,
+        Image(
+            painter = painterResource(id = R.drawable.ic_logo), contentDescription = null,
             modifier = Modifier
                 .width(150.dp)
                 .height(30.dp)
-                .padding(horizontal = MediumPadding1))
-        
-        Spacer(modifier = Modifier.height(MediumPadding1))
-
-        SearchBar(text = "", readOnly = true, onValueChange = {}, onClick = {
-           navigate(Route.SearchScreen.route)
-        }, onSearch = {})
+                .padding(horizontal = MediumPadding1)
+        )
 
         Spacer(modifier = Modifier.height(MediumPadding1))
+
+        SearchBar(
+            modifier = Modifier.padding(MediumPadding1),
+            text = "",
+            readOnly = true,
+            onValueChange = {},
+            onClick = {
+                navigateToSearch()
+            },
+            onSearch = {})
+
+        Spacer(modifier = Modifier.height(MediumPadding1))
+
+        ArticlesList(
+            modifier = Modifier.padding(horizontal = MediumPadding1),
+            articles = articles,
+            onClick = {
+                navigateToDetails(it)
+            }
+        )
 
     }
 

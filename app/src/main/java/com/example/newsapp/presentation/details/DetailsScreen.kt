@@ -1,10 +1,8 @@
 package com.example.newsapp.presentation.details
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.net.Uri
-import androidx.appcompat.app.AppCompatDelegate.NightMode
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -21,17 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.newsapp.R
 import com.example.newsapp.domain.model.Article
 import com.example.newsapp.domain.model.Source
 import com.example.newsapp.presentation.Dimens.ArticleImageHeight
 import com.example.newsapp.presentation.Dimens.MediumPadding1
 import com.example.newsapp.presentation.details.components.DetailsTopBar
-import com.example.newsapp.presentation.navgraph.Route
 import com.example.newsapp.ui.theme.NewsAppTheme
 
 @Composable
@@ -68,7 +63,7 @@ fun DetailsScreen(
                     }
                 }
             },
-            onBookmarkClick = { event(DetailsEvent.SaveArticle) },
+            onBookmarkClick = { event(DetailsEvent.UpsertDeleteArticle(article)) },
             onBackClick = navigateUp
         )
 

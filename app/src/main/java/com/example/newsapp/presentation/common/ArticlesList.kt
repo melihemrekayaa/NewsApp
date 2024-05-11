@@ -14,7 +14,7 @@ import com.example.newsapp.domain.model.Article
 import com.example.newsapp.presentation.Dimens.ExtraSmallPadding
 import com.example.newsapp.presentation.Dimens.MediumPadding1
 @Composable
-fun ArticleList(
+fun ArticlesList(
     modifier: Modifier = Modifier,
     articles: List<Article>,
     onClick : (Article) -> Unit
@@ -35,7 +35,7 @@ fun ArticleList(
 
 
 @Composable
-fun ArticleList(
+fun ArticlesList(
     modifier: Modifier = Modifier,
     articles: LazyPagingItems<Article>,
     onClick : (Article) -> Unit
